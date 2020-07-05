@@ -1,7 +1,11 @@
 package com.ikayz.books;// Created by ikayz on 05/07/2020
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Scanner;
 
 public class ApiUtil {
     private ApiUtil() {}
@@ -18,5 +22,12 @@ public class ApiUtil {
             e.printStackTrace();
         }
         return url;
+    }
+
+    public static String getJson(URL url) throws IOException {
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        InputStream stream = connection.getInputStream();
+        Scanner scanner = new Scanner(stream);
+        scanner.useDelimiter("\\A");
     }
 }
