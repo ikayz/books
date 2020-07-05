@@ -1,5 +1,7 @@
 package com.ikayz.books;// Created by ikayz on 05/07/2020
 
+import android.util.Log;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -29,5 +31,16 @@ public class ApiUtil {
         InputStream stream = connection.getInputStream();
         Scanner scanner = new Scanner(stream);
         scanner.useDelimiter("\\A");
+
+        try {
+            boolean hasData = scanner.hasNext();
+            if (hasData) {
+                return scanner.next();
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            Log.d("Error", e.toString());
+        }
     }
 }
