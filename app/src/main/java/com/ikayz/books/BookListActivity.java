@@ -17,8 +17,8 @@ public class BookListActivity extends AppCompatActivity {
         TextView tvResult = findViewById(R.id.tv_response);
         try {
             URL bookUrl = ApiUtil.buildUrl("cooking");
-            String jasonResult = ApiUtil.getJson(bookUrl);
-            tvResult.setText(jasonResult);
+            String jsonResult = ApiUtil.getJson(bookUrl);
+            tvResult.setText(jsonResult);
         } catch (Exception e) {
             Log.d("error", e.getMessage());
         }
