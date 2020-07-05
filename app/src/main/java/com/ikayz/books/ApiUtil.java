@@ -20,7 +20,7 @@ public class ApiUtil {
         URL url = null;
         try {
             url = new URL(fullUrl);
-        } catch (MalformedURLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return url;
@@ -28,11 +28,11 @@ public class ApiUtil {
 
     public static String getJson(URL url) throws IOException {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        InputStream stream = connection.getInputStream();
-        Scanner scanner = new Scanner(stream);
-        scanner.useDelimiter("\\A");
 
         try {
+            InputStream stream = connection.getInputStream();
+            Scanner scanner = new Scanner(stream);
+            scanner.useDelimiter("\\A");
             boolean hasData = scanner.hasNext();
             if (hasData) {
                 return scanner.next();
@@ -41,6 +41,11 @@ public class ApiUtil {
             }
         } catch (Exception e) {
             Log.d("Error", e.toString());
+            return null;
+        }
+
+        finally {
+            connection.disconnect();
         }
     }
 }
