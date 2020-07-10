@@ -1,5 +1,6 @@
 package com.ikayz.books;
 
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +22,14 @@ public class BookListActivity extends AppCompatActivity {
             tvResult.setText(jsonResult);
         } catch (Exception e) {
             Log.d("error", e.getMessage());
+        }
+    }
+
+    public class BooksQueryTask extends AsyncTask<URL, Void, String> {
+
+        @Override
+        protected String doInBackground(URL... urls) {
+            return null;
         }
     }
 }
