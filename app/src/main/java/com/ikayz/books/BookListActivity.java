@@ -29,7 +29,14 @@ public class BookListActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(URL... urls) {
-            return null;
+            URL searchUrl = urls[0];
+            String result = null;
+            try{
+                result = ApiUtil.getJson(searchUrl);
+            } catch (IOException e) {
+                Log.e("Error", e.getMessage());
+            }
+            return result;
         }
     }
 }
