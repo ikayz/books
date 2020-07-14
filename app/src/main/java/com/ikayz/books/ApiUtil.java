@@ -1,5 +1,6 @@
 package com.ikayz.books;// Created by ikayz on 05/07/2020
 
+import android.net.Uri;
 import android.util.Log;
 
 import java.io.IOException;
@@ -9,16 +10,21 @@ import java.net.URL;
 import java.util.Scanner;
 
 public class ApiUtil {
+    private static final String QUERY_PARAMETER_KEY = "q";
+
     private ApiUtil() {}
 
     public static final String BASE_API_URL =
             "https://www.googleapis.com/books/v1/volumes";
 
     public static URL buildUrl(String title) {
-        String fullUrl = BASE_API_URL + "?q=" + title;
+
         URL url = null;
+        Uri uri = Uri.parse(BASE_API_URL).buildUpon()
+                .appendQueryParameter(QUERY_PARAMETER_KEY, title)
+                .build();
         try {
-            url = new URL(fullUrl);
+            url = new URL(uri.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
