@@ -1,5 +1,6 @@
 package com.ikayz.books;
 
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,16 +16,15 @@ public class BookListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_list);
-        TextView tvResult = findViewById(R.id.tv_response);
         try {
             URL bookUrl = ApiUtil.buildUrl("cooking");
-            String jsonResult = ApiUtil.getJson(bookUrl);
-            tvResult.setText(jsonResult);
+            new BooksQueryTask().execute(bookUrl);
         } catch (Exception e) {
             Log.d("error", e.getMessage());
         }
     }
 
+    @SuppressLint("StaticFieldLeak")
     public class BooksQueryTask extends AsyncTask<URL, Void, String> {
 
         @Override
@@ -37,6 +37,12 @@ public class BookListActivity extends AppCompatActivity {
                 Log.e("Error", e.getMessage());
             }
             return result;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            TextView tvResult = findViewById(R.id.tv_response);
+            tvResult.setText(result);
         }
     }
 }
