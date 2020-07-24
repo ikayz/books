@@ -3,42 +3,42 @@
 ##############################################################################
 ##
 ##  Gradle start up script for UN*X
-##
+##                                                                                                                                                               public class BookListActivity extends AppCompatActivity {
 ##############################################################################
-
-# Attempt to set APP_HOME
-# Resolve links: $0 may be a link
-PRG="$0"
-# Need this for relative symlinks.
-while [ -h "$PRG" ] ; do
-    ls=`ls -ld "$PRG"`
-    link=`expr "$ls" : '.*-> \(.*\)$'`
-    if expr "$link" : '/.*' > /dev/null; then
-        PRG="$link"
-    else
+                                                                                                                                                                     @Override
+# Attempt to set APP_HOME                                                                                                                                            protected void onCreate(Bundle savedInstanceState) {
+# Resolve links: $0 may be a link                                                                                                                                        super.onCreate(savedInstanceState);
+PRG="$0"                                                                                                                                                                 setContentView(R.layout.activity_book_list);
+# Need this for relative symlinks.                                                                                                                                       try {
+while [ -h "$PRG" ] ; do                                                                                                                                                     URL bookUrl = ApiUtil.buildUrl("cooking");
+    ls=`ls -ld "$PRG"`                                                                                                                                                       new BooksQueryTask().execute(bookUrl);
+    link=`expr "$ls" : '.*-> \(.*\)$'`                                                                                                                                   } catch (Exception e) {
+    if expr "$link" : '/.*' > /dev/null; then                                                                                                                                Log.d("error", e.getMessage());
+        PRG="$link"                                                                                                                                                      }
+    else                                                                                                                                                             }
         PRG=`dirname "$PRG"`"/$link"
-    fi
-done
+    fi                                                                                                                                                               @SuppressLint("StaticFieldLeak")
+done                                                                                                                                                                 public class BooksQueryTask extends AsyncTask<URL, Void, String> {
 SAVED="`pwd`"
-cd "`dirname \"$PRG\"`/" >/dev/null
-APP_HOME="`pwd -P`"
-cd "$SAVED" >/dev/null
-
-APP_NAME="Gradle"
-APP_BASE_NAME=`basename "$0"`
-
-# Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
-DEFAULT_JVM_OPTS=""
-
-# Use the maximum available, or set MAX_FD != -1 to use that value.
+cd "`dirname \"$PRG\"`/" >/dev/null                                                                                                                                      @Override
+APP_HOME="`pwd -P`"                                                                                                                                                      protected String doInBackground(URL... urls) {
+cd "$SAVED" >/dev/null                                                                                                                                                       URL searchUrl = urls[0];
+                                                                                                                                                                             String result = null;
+APP_NAME="Gradle"                                                                                                                                                            try{
+APP_BASE_NAME=`basename "$0"`                                                                                                                                                    result = ApiUtil.getJson(searchUrl);
+                                                                                                                                                                             } catch (IOException e) {
+# Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.                                                                   Log.e("Error", e.getMessage());
+DEFAULT_JVM_OPTS=""                                                                                                                                                          }
+                                                                                                                                                                             return result;
+# Use the maximum available, or set MAX_FD != -1 to use that value.                                                                                                      }
 MAX_FD="maximum"
-
-warn () {
-    echo "$*"
-}
-
-die () {
-    echo
+                                                                                                                                                                         @Override
+warn () {                                                                                                                                                                protected void onPostExecute(String result) {
+    echo "$*"                                                                                                                                                                TextView tvResult = findViewById(R.id.tv_response);
+}                                                                                                                                                                            tvResult.setText(result);
+                                                                                                                                                                         }
+die () {                                                                                                                                                             }
+    echo                                                                                                                                                         }
     echo "$*"
     echo
     exit 1
