@@ -25,7 +25,7 @@ public class BookListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_book_list);
         mLoadingProgress = (ProgressBar) findViewById(R.id.pb_loading);
         try {
-            URL bookUrl = ApiUtil.buildUrl("London");
+            URL bookUrl = ApiUtil.buildUrl("us");
             new BooksQueryTask().execute(bookUrl);
         } catch (Exception e) {
             Log.d("error", e.getMessage());

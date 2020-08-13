@@ -15,9 +15,9 @@ public class ApiUtil {
     private ApiUtil() {}
 
     public static final String BASE_API_URL =
-            "http://samples.openweathermap.org/data/2.5/weather";
-    private static final String QUERY_PARAMETER_KEY = "q";
-    public static final String KEY = "appid";
+            "https://newsapi.org/v2/top-headlines";
+    private static final String QUERY_PARAMETER_KEY = "country";
+    public static final String KEY = "apiKey";
 
     public static URL buildUrl(String title) {
 
