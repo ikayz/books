@@ -2,6 +2,8 @@ package com.ikayz.books;
 
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,19 +18,21 @@ public class BookListActivity extends AppCompatActivity {
 
     private ProgressBar mLoadingProgress;
 
+    @RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_list);
         mLoadingProgress = (ProgressBar) findViewById(R.id.pb_loading);
         try {
-            URL bookUrl = ApiUtil.buildUrl("cooking");
+            URL bookUrl = ApiUtil.buildUrl("London");
             new BooksQueryTask().execute(bookUrl);
         } catch (Exception e) {
             Log.d("error", e.getMessage());
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
     @SuppressLint("StaticFieldLeak")
     public class BooksQueryTask extends AsyncTask<URL, Void, String> {
 

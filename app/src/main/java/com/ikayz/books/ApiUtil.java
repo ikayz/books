@@ -15,9 +15,9 @@ public class ApiUtil {
     private ApiUtil() {}
 
     public static final String BASE_API_URL =
-            "https://www.googleapis.com/books/v1/volumes";
+            "http://samples.openweathermap.org/data/2.5/weather";
     private static final String QUERY_PARAMETER_KEY = "q";
-    public static final String KEY = "key";
+    public static final String KEY = "appid";
 
     public static URL buildUrl(String title) {
 
